@@ -7,9 +7,10 @@ __author__ = 'Mal Curtis'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2013 Apostle.io'
 
+import os
 
-domain_key = None
-delivery_host = 'https://deliver.apostle.io'
+domain_key = os.getenv('APOSTLE_DOMAIN_KEY')
+delivery_host = os.getenv('APOSTLE_DELIVERY_HOST', 'https://deliver.apostle.io')
 
 from apostle.exceptions import ValidationError
 from apostle.mail import Mail
@@ -27,4 +28,4 @@ def deliver(template_id, options):
 
 
 def get_queue():
-	Queue()
+	return Queue()

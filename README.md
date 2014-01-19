@@ -5,12 +5,14 @@ Python bindings for [Apostle.io](http://apostle.io).
 
 ## Installation
 
+```sh
+pip install apostle
+```
 
 ## Usage
 
 ### Domain Key
-OR IN TH ENV
-You will need to provide your apostle domain key to send emails.
+You will need to provide your apostle domain key to send emails. You can either place this value into your OS environment as `APOSTLE_DOMAIN_KEY`, or specify it in your code.
 
 ```python
 apostle.domain_key = 'Your domain key';
@@ -27,16 +29,16 @@ apostle.deliver('welcome_email', {email: 'mal@apostle.io'});
 You can pass any information that your Apostle.io template might need.
 
 ```python
-var order = {
+order = {
 	items: ['Widget frame', 'Widget chain', 'Widget seat'],
 	id: "abc123"
-};
+}
 
 apostle.deliver('order_complete', {
-	email: 'mal@apostle.io',
-	replyTo: 'support@apostle.io',
-	order: order
-});
+	'email': 'mal@apostle.io',
+	'replyTo': 'support@apostle.io',
+	'order': order
+})
 ```
 
 ### Sending multiple emails
@@ -44,22 +46,24 @@ apostle.deliver('order_complete', {
 You can send multiple emails at once by using a queue. If any of the emails fail validation, no emails will be sent.
 
 ```python
-var queue = apostle.createQueue();
+queue = apostle.Queue()
 
-queue.push('welcome_email', {email: 'mal@apostle.io'});
-queue.push('order_email', {email: 'mal@apostle.io', order: order})
+queue.add('welcome_email', {'email': 'mal@apostle.io'});
+queue.add('order_email', {'email': 'mal@apostle.io', 'order': order})
 
-queue.deliver().then(success, error);
+queue.deliver()
 ```
 
 ### Failure Responses
 
-When recieving an error callback with `message == 'error'`, it means that the delivery to Apostle.io has failed. There are several circumstances where this might occur. You should check the `response.status` value to determine your next action. Any 2xx status code is considered a success, and will resolve the returned promise. Shortcut methods are available for some responses. In all cases, except a server error,  you can check `response.body.message` for more information.
+Failure to deliver will result in an exception being raised. All exceptions are namespaced under `apostle.exceptions`.
 
-* `response.unauthorized`, `response.status == 401` – Authorization failed. Either no domain key, or an invalid domain key was supplied.
-* `response.badRequest`, `response.status == 400` – Either no json, or invalid json was supplied to the delivery endpoint. This should not occur when using the library correctly.
-* `response.status == 422` – Unprocessable entitity. An invalid payload was supplied, usually a missing email or template id, or no recipients key. `Apostle.js` should validate before sending, so it is unlikely you will see this response.
-* `response.serverError`, `response.status == 500` – Server error occured. Something went wrong at the Apostle API, you should try again with exponential backoff.
+* `ValidationError` - Validation failed. One or more emails did not have a template id, or email address set (see error text).
+* `UnauthorizedError` (HTTP 401) – Authorization failed. Either no domain key, or an invalid domain key was supplied.
+* `ForbiddenError` (HTTP 403) – The domain key you used was not authorized to perform the action you have requested.
+* `UnprocessableEntityError` (HTTP 422) – Unprocessable entitity. An invalid payload was supplied, usually a missing email or template id, or no recipients key. `apostle.py` should validate before sending, so it is unlikely you will see this response.
+* `ServerError` (HTTP >= 500) – Server error. Something went wrong at the Apostle API, you should try again with exponential backoff.
+* `DeliveryError` – Any response code that is not covered by the above exceptions.
 
 
 ## Who
