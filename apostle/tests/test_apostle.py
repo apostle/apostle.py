@@ -59,7 +59,7 @@ class MailTest(unittest.TestCase):
 			'name': 'This User',
 			'foo': 'bar'
 		})
-		self.assertDictEqual(mail.to_recipient_dict(), {
+		self.assertEqual(mail.to_recipient_dict(), {
 			'user2@example.org' : {
 				'name': 'This User',
 				'data': { 'foo': 'bar' },
