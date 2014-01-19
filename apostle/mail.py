@@ -59,7 +59,7 @@ class Mail(object):
 		self.template_id = template_id
 
 		if options:
-			for name, value in options.iteritems():
+			for name, value in options.items():
 				self.__setattr__(name, value)
 
 	def __setattr__(self, name, value):
