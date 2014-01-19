@@ -1,4 +1,5 @@
 # Apostle.py
+[![Apostle](https://badge.fury.io/py/apostle.png)](http://badge.fury.io/py/apostle)
 
 Python bindings for [Apostle.io](http://apostle.io).
 
