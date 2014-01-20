@@ -1,5 +1,6 @@
 # Apostle.py
 [![Apostle](https://badge.fury.io/py/apostle.png)](http://badge.fury.io/py/apostle)
+[![Build Status](https://travis-ci.org/apostle/apostle.py.png?branch=master)](https://travis-ci.org/apostle/apostle.py)
 
 Python bindings for [Apostle.io](http://apostle.io).
 
