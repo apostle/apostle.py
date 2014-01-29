@@ -17,7 +17,7 @@ pip install apostle
 You will need to provide your apostle domain key to send emails. You can either place this value into your OS environment as `APOSTLE_DOMAIN_KEY`, or specify it in your code.
 
 ```python
-apostle.domain_key = 'Your domain key';
+apostle.domain_key = 'Your domain key'
 ```
 
 ### Sending Email
@@ -25,7 +25,7 @@ apostle.domain_key = 'Your domain key';
 Sending an email is easy, a minimal example may look like this.
 
 ```python
-apostle.deliver('welcome_email', {'email': 'mal@apostle.io'});
+apostle.deliver('welcome_email', {'email': 'mal@apostle.io'})
 ```
 
 You can pass any information that your Apostle.io template might need.
@@ -50,7 +50,7 @@ You can send multiple emails at once by using a queue. If any of the emails fail
 ```python
 queue = apostle.Queue()
 
-queue.add('welcome_email', {'email': 'mal@apostle.io'});
+queue.add('welcome_email', {'email': 'mal@apostle.io'})
 queue.add('order_email', {'email': 'mal@apostle.io', 'order': order})
 
 queue.deliver()
