@@ -25,15 +25,15 @@ apostle.domain_key = 'Your domain key';
 Sending an email is easy, a minimal example may look like this.
 
 ```python
-apostle.deliver('welcome_email', {email: 'mal@apostle.io'});
+apostle.deliver('welcome_email', {'email': 'mal@apostle.io'});
 ```
 
 You can pass any information that your Apostle.io template might need.
 
 ```python
 order = {
-	items: ['Widget frame', 'Widget chain', 'Widget seat'],
-	id: "abc123"
+	'items': ['Widget frame', 'Widget chain', 'Widget seat'],
+	'id': "abc123"
 }
 
 apostle.deliver('order_complete', {
