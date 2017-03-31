@@ -36,6 +36,9 @@ order = {
 	'id': "abc123"
 }
 
+# Add attachments
+m.add_attachment("receipt.txt", "receipt text goes here")
+
 apostle.deliver('order_complete', {
 	'email': 'mal@apostle.io',
 	'replyTo': 'support@apostle.io',
