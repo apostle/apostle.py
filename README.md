@@ -36,14 +36,22 @@ order = {
 	'id': "abc123"
 }
 
-# Add attachments
-m.add_attachment("receipt.txt", "receipt text goes here")
-
 apostle.deliver('order_complete', {
 	'email': 'mal@apostle.io',
 	'replyTo': 'support@apostle.io',
 	'order': order
 })
+```
+
+### Sending mails with attachments
+
+```python
+m = apostle.Mail("payment_complete", {"email": 'mantesh@apostle.io', 'name':  'Mantesh'})
+m.add_attachment("receipt.txt", "receipt content")
+
+queue = apostle.get_queue()
+queue.add(m)
+queue.deliver()
 ```
 
 ### Sending multiple emails
