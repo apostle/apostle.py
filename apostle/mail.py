@@ -84,7 +84,7 @@ class Mail(object):
 			'name': self.name,
 			'reply_to': self.reply_to,
 			'template_id': self.template_id,
-            'attachments': self.attachments
+			'attachments': self.attachments
 		}
 		for key in list(recipient_dict.keys()):
 			val = recipient_dict[key]
