@@ -98,3 +98,4 @@ class Mail(object):
 			"name": name,
 			"data": base64.b64encode(content)
 		})
+
