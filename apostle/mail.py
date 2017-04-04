@@ -1,4 +1,5 @@
 import json
+import base64
 
 
 class Mail(object):
@@ -33,6 +34,9 @@ class Mail(object):
 	# Reply To address
 	reply_to = None
 
+	# Attachments
+	attachments = []
+
 	# In the event of an error, the message will be stored here
 	_error_message = None
 
@@ -55,7 +59,7 @@ class Mail(object):
 		self.name = None
 		self.reply_to = None
 		self._error_message = None
-
+		self.attachments = []
 		self.template_id = template_id
 
 		if options:
@@ -79,12 +83,19 @@ class Mail(object):
 			'layout_id': self.layout_id,
 			'name': self.name,
 			'reply_to': self.reply_to,
-			'template_id': self.template_id
+			'template_id': self.template_id,
+			'attachments': self.attachments
 		}
 		for key in list(recipient_dict.keys()):
 			val = recipient_dict[key]
-			if val == None or val == {}:
+			if val == None or val == {} or val == []:
 				del recipient_dict[key]
 
 		return { self.email: recipient_dict }
+
+	def add_attachment(self, name, content):
+		self.attachments.append({
+			"name": name,
+			"data": base64.b64encode(content)
+		})
 

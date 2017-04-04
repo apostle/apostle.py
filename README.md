@@ -43,6 +43,17 @@ apostle.deliver('order_complete', {
 })
 ```
 
+### Sending mails with attachments
+
+```python
+m = apostle.Mail("payment_complete", {"email": 'mantesh@apostle.io', 'name':  'Mantesh'})
+m.add_attachment("receipt.txt", "receipt content")
+
+queue = apostle.get_queue()
+queue.add(m)
+queue.deliver()
+```
+
 ### Sending multiple emails
 
 You can send multiple emails at once by using a queue. If any of the emails fail validation, no emails will be sent.
